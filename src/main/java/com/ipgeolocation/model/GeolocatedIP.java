@@ -5,10 +5,9 @@ public class GeolocatedIP {
 	private String ip;
 	private Country country;
 	
-	public GeolocatedIP(String ip, Country country) {
+	public GeolocatedIP(String ip) {
 		super();
 		this.ip = ip;
-		this.country = country;
 	}
 
 	public String getIp() {

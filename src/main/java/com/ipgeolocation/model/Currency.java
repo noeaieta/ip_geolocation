@@ -3,12 +3,16 @@ package com.ipgeolocation.model;
 public class Currency {
 	
 	private String name;
-	private float quotation;
+	private Double quotation;
 	
-	public Currency(String name, float quotation) {
+	/*public Currency(String name, Double quotation) {
 		super();
 		this.name = name;
 		this.quotation = quotation;
+	}*/
+
+	public Currency() {
+		super();
 	}
 
 	public String getName() {
@@ -19,12 +23,13 @@ public class Currency {
 		this.name = name;
 	}
 
-	public float getQuotation() {
+	public Double getQuotation() {
 		return quotation;
 	}
 
-	public void setQuotation(float quotation) {
+	public void setQuotation(Double quotation) {
 		this.quotation = quotation;
 	}
+
 
 }
