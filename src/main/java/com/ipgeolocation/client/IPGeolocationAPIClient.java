@@ -8,8 +8,8 @@ import java.net.http.HttpResponse;
 
 import org.json.JSONObject;
 
-import com.ipgeolocation.model.Country;
-import com.ipgeolocation.model.Currency;
+import com.ipgeolocation.entity.Country;
+import com.ipgeolocation.repositories.Currency;
 
 public class IPGeolocationAPIClient {
 	
@@ -17,6 +17,7 @@ public class IPGeolocationAPIClient {
 	private static final String PARAMETERS = "?fields=status,message,country,countryCode,currency,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query";
 	
 	private String ip;
+	
 
 	public IPGeolocationAPIClient(String ip) {
 		this.setIp(ip);
@@ -47,6 +48,10 @@ public class IPGeolocationAPIClient {
 		country.setLongitude(responseGeolocation.getDouble("lon"));
 		currency.setName(responseGeolocation.getString("currency"));
 		country.setCurrency(currency);
+		
+		
+		//Save data of currency in data base
+
 		
 		return country;
 	}

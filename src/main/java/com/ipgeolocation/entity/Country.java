@@ -1,6 +1,8 @@
-package com.ipgeolocation.model;
+package com.ipgeolocation.entity;
 
 import java.util.List;
+
+import com.ipgeolocation.repositories.Currency;
 
 public class Country {
 

@@ -3,7 +3,7 @@ package com.ipgeolocation.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.ipgeolocation.model.GeolocatedIP;
+import com.ipgeolocation.entity.GeolocatedIP;
 
 public class GeolocationUtils {
 	
@@ -13,8 +13,8 @@ public class GeolocationUtils {
 	public static void showResults(GeolocatedIP geolocatedIP) {
 		System.out.println(DIVIDER);
 		System.out.println("IP: " + geolocatedIP.getIp() + ", " + "Fecha Actual: " + getCurrentDate());
-		System.out.println("País: " + geolocatedIP.getCountry().getName());
-		System.out.println("Código ISO: " + geolocatedIP.getCountry().getCodeISO());
+		System.out.println("Paï¿½s: " + geolocatedIP.getCountry().getName());
+		System.out.println("Cï¿½digo ISO: " + geolocatedIP.getCountry().getCodeISO());
 		System.out.println("Idiomas: "); // TODO complete
 		System.out.println("Moneda: " + getCurrencyWithQuotationToShow(geolocatedIP));
 		System.out.println("Hora: "); // TODO complete

@@ -1,4 +1,4 @@
-package com.ipgeolocation.model;
+package com.ipgeolocation.entity;
 
 public class GeolocatedIP {
 	

@@ -9,9 +9,9 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.ipgeolocation.model.Country;
-import com.ipgeolocation.model.GeolocatedIP;
-import com.ipgeolocation.model.Currency;
+import com.ipgeolocation.entity.Country;
+import com.ipgeolocation.entity.GeolocatedIP;
+import com.ipgeolocation.repositories.Currency;
 
 public class GeolocationUtilsTest {
 	

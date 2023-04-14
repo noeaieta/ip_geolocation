@@ -17,5 +17,5 @@
 *.project
 
 # Folders
-.settings/
+settings/
 target/
