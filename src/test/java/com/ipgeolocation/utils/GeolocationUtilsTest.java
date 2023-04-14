@@ -10,8 +10,8 @@ import java.util.*;
 import org.junit.jupiter.api.Test;
 
 import com.ipgeolocation.entity.Country;
+import com.ipgeolocation.entity.Currency;
 import com.ipgeolocation.entity.GeolocatedIP;
-import com.ipgeolocation.repositories.Currency;
 
 public class GeolocationUtilsTest {
 	
@@ -24,7 +24,7 @@ public class GeolocationUtilsTest {
 		Currency currency = new Currency();
 		
 		currency.setName("ARS");
-		currency.setQuotation(200.00);		
+		currency.setPrice(200.00);		
 		
 		List<String> languages = new ArrayList<>();
 		List<String> timeZones = new ArrayList<>();
@@ -33,14 +33,14 @@ public class GeolocationUtilsTest {
 		
 		country.setName("Argentina");
 		country.setCodeISO("AR");
-		country.setLanguages(languages);
-		country.setTimezones(timeZones);
+		//country.setLanguages(languages);
+		//country.setTimezones(timeZones);
 		country.setCurrency(currency);
 		
 		geolocatedIP.setCountry(country);
 		
 		String expectedResult = "ARS (1 ARS = 200.0 U$S)";
-		assertEquals(expectedResult, GeolocationUtils.getCurrencyWithQuotationToShow(geolocatedIP));  
+		assertEquals(expectedResult, GeolocationUtils.getCurrencyWithPriceToShow(geolocatedIP));  
 		
     }
 	
@@ -51,7 +51,7 @@ public class GeolocationUtilsTest {
 		Currency currency = new Currency();
 		
 		currency.setName("ARS");
-		currency.setQuotation(200.00);		
+		currency.setPrice(200.00);		
 		
 		List<String> languages = new ArrayList<>();
 		List<String> timeZones = new ArrayList<>();
@@ -60,8 +60,8 @@ public class GeolocationUtilsTest {
 		
 		country.setName("Argentina");
 		country.setCodeISO("AR");
-		country.setLanguages(languages);
-		country.setTimezones(timeZones);
+		//country.setLanguages(languages);
+		//country.setTimezones(timeZones);
 		country.setCurrency(currency);
 		
 		geolocatedIP.setCountry(country);

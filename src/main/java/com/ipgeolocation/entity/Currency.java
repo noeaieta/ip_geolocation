@@ -1,4 +1,6 @@
-package com.ipgeolocation.repositories;
+package com.ipgeolocation.entity;
+
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -14,16 +16,16 @@ public class Currency {
 	private String name;
 	
 	@Column
-	private Double quotation;
+	private Double price;
 	
 	public Currency() {
 		super();
 	}
 	
-	public Currency(String name, Double quotation) {
+	public Currency(String name, Double price) {
 		super();
 		this.name = name;
-		this.quotation = quotation;
+		this.price = price;
 	}
 	
 	public Integer getId_currency() {
@@ -42,17 +44,17 @@ public class Currency {
 		this.name = name;
 	}
 
-	public Double getQuotation() {
-		return quotation;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setQuotation(Double quotation) {
-		this.quotation = quotation;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	@Override
 	public String toString() {
-		return "Currency [id_currency=" + id_currency + ", name=" + name + ", quotation=" + quotation + "]";
+		return "Currency [id_currency=" + id_currency + ", name=" + name + ", price=" + price + "]";
 	}
 
 	

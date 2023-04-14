@@ -16,7 +16,7 @@ public class GeolocationUtils {
 		System.out.println("Pa�s: " + geolocatedIP.getCountry().getName());
 		System.out.println("C�digo ISO: " + geolocatedIP.getCountry().getCodeISO());
 		System.out.println("Idiomas: "); // TODO complete
-		System.out.println("Moneda: " + getCurrencyWithQuotationToShow(geolocatedIP));
+		System.out.println("Moneda: " + getCurrencyWithPriceToShow(geolocatedIP));
 		System.out.println("Hora: "); // TODO complete
 		System.out.println("Distancia estimada: " + geolocatedIP.getCountry().getDistanceTo());
 		System.out.println(DIVIDER);
@@ -31,9 +31,9 @@ public class GeolocationUtils {
 		
 	}
 
-	public static String getCurrencyWithQuotationToShow(GeolocatedIP geolocatedIP) {
+	public static String getCurrencyWithPriceToShow(GeolocatedIP geolocatedIP) {
 		String currencyToShow = "";
-		currencyToShow = geolocatedIP.getCountry().getCurrency().getName() + " (1 " + geolocatedIP.getCountry().getCurrency().getName() + " = " + Double.toString(geolocatedIP.getCountry().getCurrency().getQuotation()) + " U$S)";
+		currencyToShow = geolocatedIP.getCountry().getCurrency().getName() + " (1 " + geolocatedIP.getCountry().getCurrency().getName() + " = " + Double.toString(geolocatedIP.getCountry().getCurrency().getPrice()) + " U$S)";
 	
 		return currencyToShow;
 	}

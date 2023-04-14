@@ -9,7 +9,7 @@ import java.net.http.HttpResponse;
 import org.json.JSONObject;
 
 import com.ipgeolocation.entity.Country;
-import com.ipgeolocation.repositories.Currency;
+import com.ipgeolocation.entity.Currency;
 
 public class IPGeolocationAPIClient {
 	

@@ -20,9 +20,9 @@ public class CurrencyAPIClient {
 	}
 	
 	
-	public Double getQuotationToDollar() throws IOException {
+	public Double getPriceInDollars() throws IOException {
 
-		Double quotation;
+		Double price;
 		String url = GET_URL_CURRENCY_INITIAL + this.currencyFrom + GET_URL_CURRENCY_END;
 
 		HttpRequest request = HttpRequest.newBuilder()
@@ -46,9 +46,9 @@ public class CurrencyAPIClient {
 			System.out.println(obj.getString("rate"));
 		}*/
 
-		quotation = obj.getJSONObject("info").getDouble("rate");
+		price = obj.getJSONObject("info").getDouble("rate");
 		
-		return quotation;
+		return price;
 	}
 	
 

@@ -1,29 +1,91 @@
 package com.ipgeolocation.entity;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import com.ipgeolocation.repositories.Currency;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.StringNVarcharType;
+
+
+
+
+@Entity
+@Table(name = "countries")
+@TypeDefs({
+    @TypeDef(
+        name = "string-array", 
+        typeClass = StringNVarcharType.class
+    ),
+    @TypeDef(
+        name = "int-array", 
+        typeClass = IntegerType.class
+    )
+})
 public class Country {
 
 	private static final double LATITUDE_BS_AS = -34.6142;
 	private static final double LONGITUDE_BS_AS = -58.3811;
 	private static final double RADIO_EARTH_KM = 6371.0;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id_country;
 	
+	@Column
 	private String name;
+	
+	@Column(name="code_iso")
 	private String codeISO;
-	private List<String> languages;
-	private List<String> timezones;
+	
+	//@ElementCollection(fetch = FetchType.EAGER)
+	//@Column(name = "languages", columnDefinition = "text[]")
+	
+	//@Transient
+	//@ElementCollection(fetch = FetchType.EAGER)
+	@Column(name = "languages", columnDefinition = "text[]")
+	private String[] languages;
+	
+	//@Column(name = "strings", columnDefinition = "text[]")
+	//@ElementCollection
+	//@Transient
+	@Column(name = "timezones", columnDefinition = "text[]")
+	private String[] timezones;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "id_currency")
 	private Currency currency;
+	
+	@Column
 	private double latitude;
+	
+	@Column
 	private double longitude;
 	
 	public Country() {
 		super();
 	}
 	
-	public Country(String name, String codeISO, List<String> languages, List<String> timezones, Currency currency) {
+	public Country(String name, String codeISO, String[] languages, String[] timezones, Currency currency) {
 		super();
 		this.name = name;
 		this.codeISO = codeISO;
@@ -67,19 +129,19 @@ public class Country {
 		this.codeISO = codeISO;
 	}
 
-	public List<String> getLanguages() {
+	public String[] getLanguages() {
 		return languages;
 	}
 
-	public void setLanguages(List<String> languages) {
+	public void setLanguages (String[] languages) {
 		this.languages = languages;
 	}
 
-	public List<String> getTimezones() {
+	public String[] getTimezones() {
 		return timezones;
 	}
 
-	public void setTimezones(List<String> timezones) {
+	public void setTimezones(String[] timezones) {
 		this.timezones = timezones;
 	}
 
