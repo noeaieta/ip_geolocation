@@ -5,7 +5,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.ipgeolocation.entity.Country;
@@ -14,6 +17,7 @@ import com.ipgeolocation.entity.Currency;
 public class IPGeolocationAPIClient {
 	
 	private static final String GET_URL_GEOLOCATION_IP = "http://ip-api.com/json/";
+	private static final String URL_API_GEOLOCATION_IP_ALL_FIELDS = "http://api.ipapi.com/api/";
 	private static final String PARAMETERS = "?fields=status,message,country,countryCode,currency,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query";
 	
 	private String ip;
@@ -23,12 +27,11 @@ public class IPGeolocationAPIClient {
 		this.setIp(ip);
 	}
 
-	public Country callIPGeolocationAPI() {
-		Country country = new Country();
-		Currency currency = new Currency();
+	public void callIPGeolocationAPI(Country country) {
 		
 		// Call to API of geolocation
-		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(GET_URL_GEOLOCATION_IP + ip + PARAMETERS))
+		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(URL_API_GEOLOCATION_IP_ALL_FIELDS + ip + "?access_key=19acde721fc63953b3bdc2179824ca3d"))
+				//.header("access_key", "19acde721fc63953b3bdc2179824ca3d")
 				.method("GET", HttpRequest.BodyPublishers.noBody()).build();
 		HttpResponse<String> response = null;
 		try {
@@ -38,22 +41,27 @@ public class IPGeolocationAPIClient {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Response " + response.body());
+		//System.out.println("Response " + response.body());
 		String jsonResponseGeolocation = response.body();
 		JSONObject responseGeolocation = new JSONObject(jsonResponseGeolocation);
 	
-		country.setName(responseGeolocation.getString("country"));
-		country.setCodeISO(responseGeolocation.getString("countryCode"));
-		country.setLatitude(responseGeolocation.getDouble("lat"));
-		country.setLongitude(responseGeolocation.getDouble("lon"));
-		currency.setName(responseGeolocation.getString("currency"));
-		country.setCurrency(currency);
-		
-		
-		//Save data of currency in data base
+		country.setName(responseGeolocation.getString("country_name"));
+		country.setCodeISO(responseGeolocation.getString("country_code"));
+		country.setLatitude(responseGeolocation.getDouble("latitude"));
+		country.setLongitude(responseGeolocation.getDouble("longitude"));
 
+		//Init Languages
+		JSONArray jsonArrayLanguages = responseGeolocation.getJSONObject("location").getJSONArray("languages");
 		
-		return country;
+		List<String> listLanguages = new ArrayList<String>();
+		String[] languages = new String[10]; //TODO Make a variable static for 10.
+		for(int i = 0 ; i < jsonArrayLanguages.length() ; i++){
+			listLanguages.add(jsonArrayLanguages.getJSONObject(i).getString("name"));
+			languages[i] = jsonArrayLanguages.getJSONObject(i).getString("name");
+		}
+		country.setLanguages(languages);
+		//Finish Languages
+
 	}
 
 	public String getIp() {

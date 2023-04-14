@@ -38,7 +38,7 @@ public class CurrencyAPIClient {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Response Monedas" + response.body());
+		//System.out.println("Response Monedas" + response.body());
 		String jsonResponse = response.body();
 		JSONObject obj = new JSONObject(jsonResponse);
 

@@ -13,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.ipgeolocation.client.CountryAPIClient;
 import com.ipgeolocation.client.CurrencyAPIClient;
 import com.ipgeolocation.client.IPGeolocationAPIClient;
 import com.ipgeolocation.entity.Country;
@@ -41,12 +42,29 @@ public class IPGeolocationAPI {
 		return (args) -> {
 			
 			String ip = "200.123.140.97";
+			GeolocationUtils.getHoursInCountry(new GeolocatedIP(ip));
+			/*Country country = new Country();
+			Currency currency = new Currency();
+			country.setCurrency(currency);
 			
 			IPGeolocationAPIClient ipGeolocationClient = new IPGeolocationAPIClient(ip);
-			Country country = ipGeolocationClient.callIPGeolocationAPI(); //Call API of Geolocation IP
+			ipGeolocationClient.callIPGeolocationAPI(country); //Call API of Geolocation IP
 			
-			//TODO falta obtener los lenguajes y la zona horaria.
+			CountryAPIClient countryAPI = new CountryAPIClient(ip);
+			countryAPI.callCountryAPI(country); //Call API of Country Information IP
+			
+			CurrencyAPIClient currencyAPIClient = new CurrencyAPIClient(country.getCurrency().getCode());
+			country.getCurrency().setPrice(currencyAPIClient.getPriceInDollars());
+			
+			//Show results
 			GeolocatedIP geolocatedIP = new GeolocatedIP(ip);
+			geolocatedIP.setIp(ip);
+			geolocatedIP.setCountry(country);
+			
+			GeolocationUtils.showResults(geolocatedIP); //Print in console the results
+			*/
+			//TODO falta obtener los lenguajes y la zona horaria.
+			/*GeolocatedIP geolocatedIP = new GeolocatedIP(ip);
 		
 			CurrencyAPIClient currencyAPIClient = new CurrencyAPIClient(country.getCurrency().getName());
 			try {
@@ -58,7 +76,7 @@ public class IPGeolocationAPI {
 			
 			
 			geolocatedIP.setCountry(country);
-			GeolocationUtils.showResults(geolocatedIP); //Print in console the results
+			GeolocationUtils.showResults(geolocatedIP); //Print in console the results*/
 			
 			
 			//Caso de prueba para guardar en la base Country y Currency

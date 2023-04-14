@@ -13,6 +13,9 @@ public class Currency {
 	private Integer id_currency;
 	
 	@Column
+	private String code;
+	
+	@Column
 	private String name;
 	
 	@Column
@@ -34,6 +37,14 @@ public class Currency {
 
 	public void setId_currency(Integer id_currency) {
 		this.id_currency = id_currency;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getName() {
