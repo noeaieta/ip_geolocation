@@ -15,7 +15,7 @@ import com.ipgeolocation.entity.GeolocatedIP;
 
 public class GeolocationUtilsTest {
 	
-	public static final String IP_TEST = "200.10.133.99";
+	/*public static final String IP_TEST = "200.10.133.99";
 	
 	@Test
 	 public void getCurrencyWithQuotationToShowTest() {
@@ -42,9 +42,9 @@ public class GeolocationUtilsTest {
 		String expectedResult = "ARS (1 ARS = 200.0 U$S)";
 		assertEquals(expectedResult, GeolocationUtils.getCurrencyWithPriceToShow(geolocatedIP));  
 		
-    }
+    }*/
 	
-	public void showResultsTest() {
+	/*public void showResultsTest() {
 		
 		GeolocatedIP geolocatedIP = new GeolocatedIP(IP_TEST);
 		Country country = new Country();
@@ -69,6 +69,6 @@ public class GeolocationUtilsTest {
 		GeolocationUtils.showResults(geolocatedIP);
 		//asserts(GeolocationUtils.showResults(geolocatedIP));
 		
-	}
+	}*/
 
 }

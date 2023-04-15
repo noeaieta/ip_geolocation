@@ -1,10 +1,11 @@
 package com.ipgeolocation.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ipgeolocation.entity.Country;
-import com.ipgeolocation.entity.Currency;
 import com.ipgeolocation.repositories.CountryRepository;
 
 @Service
@@ -19,9 +20,12 @@ public class CountryService {
 		  }
 	}
 	
+	public Optional<Country> getByCode(String code) {
+		return this.countryRepository.findById(code);
+	}
+	
 	public void saveCountry(Country country) {
        this.countryRepository.save(country);
-       System.out.println("Country saved OK");
 	}
 	
 }

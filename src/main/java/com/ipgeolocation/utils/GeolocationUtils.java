@@ -25,7 +25,7 @@ public class GeolocationUtils {
 		System.out.println("Idiomas: " + getLanguagesToShow(geolocatedIP));
 		System.out.println("Moneda: " + getCurrencyWithPriceToShow(geolocatedIP));
 		System.out.println("Hora: " + getHoursInCountry(geolocatedIP)); 
-		System.out.println("Distancia estimada: " + geolocatedIP.getCountry().getDistanceTo() + "kms"); //TODO add coordinates
+		//System.out.println("Distancia estimada: " + geolocatedIP.getCountry().getDistanceTo() + "kms"); //TODO add coordinates
 		System.out.println(DIVIDER);
 
 	}
@@ -40,7 +40,7 @@ public class GeolocationUtils {
 
 	public static String getCurrencyWithPriceToShow(GeolocatedIP geolocatedIP) {
 		String currencyToShow = "";
-		currencyToShow = geolocatedIP.getCountry().getCurrency().getName() + " (1 " + geolocatedIP.getCountry().getCurrency().getName() + " = " + Double.toString(geolocatedIP.getCountry().getCurrency().getPrice()) + " U$S)";
+		//currencyToShow = geolocatedIP.getCountry().getCurrency().getName() + " (1 " + geolocatedIP.getCountry().getCurrency().getName() + " = " + Double.toString(geolocatedIP.getCountry().getCurrency().getPrice()) + " U$S)";
 	
 		return currencyToShow;
 	}

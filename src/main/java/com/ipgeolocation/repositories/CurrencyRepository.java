@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.ipgeolocation.entity.Currency;
 
-public interface CurrencyRepository extends CrudRepository<Currency, Integer>{
+public interface CurrencyRepository extends CrudRepository<Currency, String>{
 
 }
