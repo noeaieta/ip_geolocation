@@ -110,24 +110,4 @@ public class Country {
 		this.longitude = longitude;
 	}
 	
-	
-	//TODO modify, pass with parameters.
-	/* Returns the distance between Buenos Aires and countryTo in kilometers from latitudes and longitudes */
-	/*public double getDistanceTo() {        
-        double latitudes = Math.toRadians(this.getLatitude() - LATITUDE_BS_AS);  
-        double longitudes = Math.toRadians(this.getLongitude() - LONGITUDE_BS_AS);  
-        
-        double sinLatitudes = Math.sin(latitudes / 2);  
-        double sinLongitudes = Math.sin(longitudes / 2);
-        
-        double calculationFirst = Math.pow(sinLatitudes, 2) + Math.pow(sinLongitudes, 2)  
-                * Math.cos(Math.toRadians(LATITUDE_BS_AS)) * Math.cos(Math.toRadians(this.getLatitude()));  
-        double calculationSecond = 2 * Math.atan2(Math.sqrt(calculationFirst), Math.sqrt(1 - calculationFirst));
-        
-        double distance = RADIO_EARTH_KM * calculationSecond;  
-   
-        return distance;
-		
-	}*/
-	
 }

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import com.ipgeolocation.entity.Country;
+import com.ipgeolocation.entity.Distance;
 import com.ipgeolocation.entity.GeolocatedIP;
 
 public class GeolocationUtils {
@@ -72,6 +73,18 @@ public class GeolocationUtils {
 		}
 	        
 	    return datesToShow;  
-	  }  
+	  } 
+	
+	
+	public static void showDistance(Distance distance) {
+	
+		final Object[][] table = new String[2][];
+		table[0] = new String[] { "País", "Distancia"};
+		table[1] = new String[] { distance.getGeolocatedIp().getCountry().getName(), distance.getDistance().toString()};
+
+		for (final Object[] row : table) {
+		    System.out.format("%-15s%-15s%n", row);
+		}
+	}
 	
 }

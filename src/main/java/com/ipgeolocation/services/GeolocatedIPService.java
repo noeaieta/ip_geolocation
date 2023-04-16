@@ -12,8 +12,10 @@ import com.ipgeolocation.clients.restcountries.RestCountriesAPIClient;
 import com.ipgeolocation.clients.restcountries.RestCountriesResponse;
 import com.ipgeolocation.entity.Country;
 import com.ipgeolocation.entity.Currency;
+import com.ipgeolocation.entity.Distance;
 import com.ipgeolocation.entity.GeolocatedIP;
 import com.ipgeolocation.repositories.GeolocatedIPRepository;
+import com.ipgeolocation.statistics.StatisticsService;
 import com.ipgeolocation.utils.GeolocationUtils;
 
 @Service
@@ -29,7 +31,7 @@ public class GeolocatedIPService {
 	private CountryService countryService;
 	
 	@Autowired
-	private CurrencyService currencyService;
+	private DistanceService distanceService;
 	
 	@Autowired
 	private RestCountriesAPIClient restCountriesAPIClient;
@@ -49,7 +51,16 @@ public class GeolocatedIPService {
         System.out.println("GeolocatedIP saved OK");
 	}
 	
+	public void getCallsByCountry(Country country) {
+		this.geolocatedIPRepository.findById(country.getCodeISO());
+	}
 	 
+	public void calculateAndSaveDistance(GeolocatedIP geolocatedIP) {
+		Double distance = this.distanceService.getDistanceTo(geolocatedIP.getCountry());
+		
+		this.distanceService.saveDistance(new Distance(distance, geolocatedIP));
+	}
+	
 	public GeolocatedIP geolocateIP(String ip) throws Exception {
 		Country country;
 		String countryCode, currencyCode, currencyName;
@@ -104,6 +115,8 @@ public class GeolocatedIPService {
 		geolocatedIP.setCountry(country);
 		this.saveGeolocatedIp(geolocatedIP);
 		
+		//Distance to Buenos Aires
+		this.calculateAndSaveDistance(geolocatedIP);	
 		
 		return geolocatedIP;
 	}
