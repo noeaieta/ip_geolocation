@@ -59,5 +59,10 @@
     		<artifactId>hibernate-types-52</artifactId>
       		<version>2.20.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+		<dependency>
+    		<groupId>javax.persistence</groupId>
+    		<artifactId>javax.persistence-api</artifactId>
+    		</dependency>
 	</dependencies>
 </project>

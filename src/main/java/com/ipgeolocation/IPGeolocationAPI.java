@@ -3,9 +3,13 @@ package com.ipgeolocation;
 
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -52,29 +56,14 @@ public class IPGeolocationAPI {
 	public CommandLineRunner cmd() {
 		return (args) -> {
 			
-			String ip = "104.53.33.253"; 	//String ip = args[0];
-		
-			GeolocatedIP geolocatedIP = new GeolocatedIP();
-			String [] languages = new String[1];
-			languages[0] = "Español";
-			String [] timezones = new String[1];
-			timezones[0] = "UTC-08:00";
-			Country country = new Country("CO", "Colombia", languages, timezones, new Currency("CO", "Peso Colombiano"),
-					4.6126,  -74.0705);
+			String ip = "200.123.140.97"; 	//String ip = args[0];			
 			
-			geolocatedIP.setIp("104.53.33.253");
-			geolocatedIP.setCountry(country);
-			//this.geolocatedIPService.saveGeolocatedIp(geolocatedIP);
-			//this.geolocatedIPService.calculateAndSaveDistance(geolocatedIP);
+			GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP(ip);
+			GeolocationUtils.showResults(geolocatedIP);
 			
+			Map<String, Integer> datos = new HashMap<String, Integer>();
+
 			
-			//this.geolocatedIPService.geolocateIP(ip);
-			
-			
-			List<Distance> distances = this.statisticsService.getTheFarthestAndNearestDistance();
-			GeolocationUtils.showDistance(distances.get(0));
-			GeolocationUtils.showDistance(distances.get(1));
-		
 		};
 	}
 }

@@ -1,10 +1,13 @@
 package com.ipgeolocation.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ipgeolocation.entity.Country;
 import com.ipgeolocation.entity.Distance;
+import com.ipgeolocation.entity.GeolocatedIP;
 import com.ipgeolocation.repositories.DistanceRepository;
 
 @Service
@@ -19,6 +22,10 @@ public class DistanceService {
 	
 	public Iterable<Distance> getDistances() {
 		 return this.distanceRepository.findAll();
+	}
+	
+	public Optional<Distance> getDistanceByIP(GeolocatedIP geolocatedIP) {
+		 return this.distanceRepository.findById(geolocatedIP.getIp());
 	}
 
 	public Distance saveDistance(Distance distance) {

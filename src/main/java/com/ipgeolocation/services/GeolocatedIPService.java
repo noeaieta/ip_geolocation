@@ -1,9 +1,13 @@
 package com.ipgeolocation.services;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.ipgeolocation.clients.ipapi.IPAPIClient;
@@ -53,7 +57,17 @@ public class GeolocatedIPService {
 	
 	public void getCallsByCountry(Country country) {
 		this.geolocatedIPRepository.findById(country.getCodeISO());
+		
 	}
+	
+	public Integer getCountriesCount(String code) {
+		return this.geolocatedIPRepository.findCount(code);
+	}
+	
+	public List<Map<String, Integer>> getInvocationsPerCountry() {
+		return this.geolocatedIPRepository.getInvocationsPerCountry();	
+	}
+	
 	 
 	public void calculateAndSaveDistance(GeolocatedIP geolocatedIP) {
 		Double distance = this.distanceService.getDistanceTo(geolocatedIP.getCountry());

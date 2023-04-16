@@ -3,22 +3,27 @@ package com.ipgeolocation.utils;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimeZone;
 
+import com.ipgeolocation.clients.apiconvert.APIConvertClient;
 import com.ipgeolocation.entity.Country;
 import com.ipgeolocation.entity.Distance;
 import com.ipgeolocation.entity.GeolocatedIP;
+import com.ipgeolocation.services.DistanceService;
 
 public class GeolocationUtils {
 	
 	public static final String DIVIDER = "###############################################";
 	
 	
-	public static void showResults(GeolocatedIP geolocatedIP) {
+	public static void showResults(GeolocatedIP geolocatedIP) throws Exception {
+		DistanceService distanceService = new DistanceService();
 		System.out.println(DIVIDER);
 		System.out.println("IP: " + geolocatedIP.getIp() + ", " + "Fecha Actual: " + getCurrentDate());
 		System.out.println("País: " + geolocatedIP.getCountry().getName());
@@ -26,7 +31,7 @@ public class GeolocationUtils {
 		System.out.println("Idiomas: " + getLanguagesToShow(geolocatedIP));
 		System.out.println("Moneda: " + getCurrencyWithPriceToShow(geolocatedIP));
 		System.out.println("Hora: " + getHoursInCountry(geolocatedIP)); 
-		//System.out.println("Distancia estimada: " + geolocatedIP.getCountry().getDistanceTo() + "kms"); //TODO add coordinates
+		System.out.println("Distancia estimada: " + distanceService.getDistanceTo(geolocatedIP.getCountry()) + " kms"); 
 		System.out.println(DIVIDER);
 
 	}
@@ -39,10 +44,19 @@ public class GeolocationUtils {
 		
 	}
 
-	public static String getCurrencyWithPriceToShow(GeolocatedIP geolocatedIP) {
+	public static String getCurrencyWithPriceToShow(GeolocatedIP geolocatedIP) throws Exception {
 		String currencyToShow = "";
-		//currencyToShow = geolocatedIP.getCountry().getCurrency().getName() + " (1 " + geolocatedIP.getCountry().getCurrency().getName() + " = " + Double.toString(geolocatedIP.getCountry().getCurrency().getPrice()) + " U$S)";
-	
+		Double rate;
+		APIConvertClient apiConvertClient = new APIConvertClient();
+		try {
+			rate = apiConvertClient.getExchangeRate("USD", geolocatedIP.getCountry().getCurrency().getCode());
+			currencyToShow = geolocatedIP.getCountry().getCurrency().getName() + 
+					" (1 " + geolocatedIP.getCountry().getCurrency().getName() + " = " + rate + " U$S)";
+		
+		} catch (Exception exception) {
+			throw new Exception("Error while trying to call CurrencyAPI :" + exception.getMessage());
+		}
+		
 		return currencyToShow;
 	}
 	
@@ -50,22 +64,18 @@ public class GeolocationUtils {
 		String languagesToShow = "";
 		String[] languages = geolocatedIP.getCountry().getLanguages();
 		for(int i = 0; i < languages.length; i++) {
-			languagesToShow = languagesToShow + languages[i];
+			languagesToShow = languagesToShow + " " + languages[i];
 		}
 		return languagesToShow;
 		
 	}
 	
 	
-	public static String getHoursInCountry(GeolocatedIP geolocatedIP) {
-		String[] prueba = new String[1];
-		prueba[0] = "UTC-03:00";
-		geolocatedIP.setCountry(new Country());
-		geolocatedIP.getCountry().setTimezones(prueba);
-		
-		System.out.println("UTC INSTANTE " + Instant.now());
+	public static String getHoursInCountry(GeolocatedIP geolocatedIP) {	
 		Instant now = Instant.now();
-		String datesToShow = Instant.now().toString() + " (UTC) "; 
+		OffsetDateTime dateTimeNowUTC;  
+		dateTimeNowUTC = OffsetDateTime.now(ZoneOffset.UTC);
+		String datesToShow = dateTimeNowUTC.getHour() + ":" +  dateTimeNowUTC.getMinute() + ":" + dateTimeNowUTC.getSecond() + " (UTC) "; 
 		for (int i = 0; i < geolocatedIP.getCountry().getTimezones().length; i++) {
 			ZonedDateTime nowUTC = ZonedDateTime.ofInstant(now, ZoneId.of(geolocatedIP.getCountry().getTimezones()[i]));
 			datesToShow = datesToShow + nowUTC.getHour() + ":" +  nowUTC.getMinute() + ":" + nowUTC.getSecond()
