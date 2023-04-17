@@ -1,10 +1,7 @@
 package com.ipgeolocation.repositories;
 
 
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -12,19 +9,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.ipgeolocation.entity.GeolocatedIP;
+import com.ipgeolocation.statistics.StatisticsResponse;
 
 public interface GeolocatedIPRepository extends CrudRepository<GeolocatedIP, String>{
-	 
 	  @Transactional
-	  @Query(value = """
-		      SELECT COUNT(*) FROM geolocatedip WHERE country=(:code);
-		      """, nativeQuery = true)
-	  public Integer findCount(String code);
-
-	  @Transactional
-	  @Query(value = """
-		      SELECT country, COUNT(*) FROM public.geolocatedip GROUP BY country
-		      """, nativeQuery = true)
-	  public List<Map<String, Integer>> getInvocationsPerCountry();
+	  @Query("""
+	  		SELECT new com.ipgeolocation.statistics.StatisticsResponse(c.name, d.toBuenosAires, COUNT(*)) 
+			FROM GeolocatedIP gip  
+			INNER JOIN Country c ON c.codeISO=gip.country
+	  		INNER JOIN Distance d ON gip.country=d.country
+	  		GROUP BY c.name, d.toBuenosAires 
+		    """)
+	  public List<StatisticsResponse> getInvocationsPerCountry();
 	  
 }

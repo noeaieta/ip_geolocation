@@ -18,46 +18,55 @@ public class Distance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column
-	private Double distance;
+	@Column(name="to_buenos_aires")
+	private Double toBuenosAires;
 	
 	@OneToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "geolocatedip",referencedColumnName="ip")
-	private GeolocatedIP geolocatedIp;
+	@JoinColumn(name = "country")
+	private Country country;
 
 	
 	public Distance() {
 		super();
 	}
 
-	public Distance(Double distance, GeolocatedIP geolocatedIp) {
+
+	public Distance(Country country, Double toBuenosAires) {
 		super();
-		this.distance = distance;
-		this.geolocatedIp = geolocatedIp;
+		this.toBuenosAires = toBuenosAires;
+		this.country = country;
 	}
+
 
 	public Integer getId() {
 		return id;
 	}
 
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Double getDistance() {
-		return distance;
+
+	public Double getToBuenosAires() {
+		return toBuenosAires;
 	}
 
-	public void setDistance(Double distance) {
-		this.distance = distance;
+
+	public void setToBuenosAires(Double toBuenosAires) {
+		this.toBuenosAires = toBuenosAires;
 	}
 
-	public GeolocatedIP getGeolocatedIp() {
-		return geolocatedIp;
+
+	public Country getCountry() {
+		return country;
 	}
 
-	public void setGeolocatedIp(GeolocatedIP geolocatedIp) {
-		this.geolocatedIp = geolocatedIp;
+
+	public void setCountry(Country country) {
+		this.country = country;
 	}
+
+	
 
 }

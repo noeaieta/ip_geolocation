@@ -33,6 +33,7 @@ public class DistanceService {
 	}
 	
 	
+	//TODO modify
 	/* Returns the distance between Buenos Aires and countryTo in kilometers from latitudes and longitudes */
 	public double getDistanceTo(Country countryTo) {
 		double latitudes = Math.toRadians(countryTo.getLatitude() - LATITUDE_BS_AS);

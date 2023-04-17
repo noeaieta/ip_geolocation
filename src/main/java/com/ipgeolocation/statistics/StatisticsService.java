@@ -28,12 +28,12 @@ public class StatisticsService {
 		double maxDistance = 0.0 , minDistance = 0.0;
 		int positionMin = 0, positionMax = 0;
 		for (int i = 0; i < allDistances.size(); i++) {	
-			if (allDistances.get(i).getDistance() > maxDistance) {
-				maxDistance = allDistances.get(i).getDistance();
+			if (allDistances.get(i).getToBuenosAires() > maxDistance) {
+				maxDistance = allDistances.get(i).getToBuenosAires();
 				positionMax = i;
 			}
-			if (allDistances.get(i).getDistance() < minDistance) {
-				minDistance = allDistances.get(i).getDistance();
+			if (allDistances.get(i).getToBuenosAires() < minDistance) {
+				minDistance = allDistances.get(i).getToBuenosAires();
 				positionMin = i;
 			}
 		}

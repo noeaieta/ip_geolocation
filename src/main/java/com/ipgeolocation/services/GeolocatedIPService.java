@@ -19,6 +19,7 @@ import com.ipgeolocation.entity.Currency;
 import com.ipgeolocation.entity.Distance;
 import com.ipgeolocation.entity.GeolocatedIP;
 import com.ipgeolocation.repositories.GeolocatedIPRepository;
+import com.ipgeolocation.statistics.StatisticsResponse;
 import com.ipgeolocation.statistics.StatisticsService;
 import com.ipgeolocation.utils.GeolocationUtils;
 
@@ -60,11 +61,8 @@ public class GeolocatedIPService {
 		
 	}
 	
-	public Integer getCountriesCount(String code) {
-		return this.geolocatedIPRepository.findCount(code);
-	}
 	
-	public List<Map<String, Integer>> getInvocationsPerCountry() {
+	public List<StatisticsResponse> getInvocationsPerCountry() {
 		return this.geolocatedIPRepository.getInvocationsPerCountry();	
 	}
 	
@@ -72,7 +70,7 @@ public class GeolocatedIPService {
 	public void calculateAndSaveDistance(GeolocatedIP geolocatedIP) {
 		Double distance = this.distanceService.getDistanceTo(geolocatedIP.getCountry());
 		
-		this.distanceService.saveDistance(new Distance(distance, geolocatedIP));
+		this.distanceService.saveDistance(new Distance(geolocatedIP.getCountry(), distance));
 	}
 	
 	public GeolocatedIP geolocateIP(String ip) throws Exception {

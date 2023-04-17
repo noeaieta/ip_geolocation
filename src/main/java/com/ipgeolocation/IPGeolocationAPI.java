@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +18,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.ipgeolocation.clients.apiconvert.APIConvertClient;
 import com.ipgeolocation.clients.restcountries.RestCountriesAPIClient;
 import com.ipgeolocation.entity.Country;
 import com.ipgeolocation.entity.Currency;
@@ -26,6 +28,7 @@ import com.ipgeolocation.services.CountryService;
 import com.ipgeolocation.services.CurrencyService;
 import com.ipgeolocation.services.DistanceService;
 import com.ipgeolocation.services.GeolocatedIPService;
+import com.ipgeolocation.statistics.StatisticsResponse;
 import com.ipgeolocation.statistics.StatisticsService;
 import com.ipgeolocation.utils.GeolocationUtils;
 
@@ -56,13 +59,19 @@ public class IPGeolocationAPI {
 	public CommandLineRunner cmd() {
 		return (args) -> {
 			
-			String ip = "200.123.140.97"; 	//String ip = args[0];			
+			/*Scanner scanner = new Scanner(System.in);
+			System.out.println("Please enter your ip: ");
+			String ip = scanner.nextLine();
+			System.out.println("IP ingresada " + ip);
+			scanner.close();*/
+			//String ip = "200.123.140.97"; 	//String ip = args[0];			
 			
-			GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP(ip);
-			GeolocationUtils.showResults(geolocatedIP);
-			
-			Map<String, Integer> datos = new HashMap<String, Integer>();
+			//GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP("104.239.73.253");
+			//GeolocationUtils.showResults(geolocatedIP);
 
+			
+			List<StatisticsResponse> resultado = this.geolocatedIPService.getInvocationsPerCountry();
+			GeolocationUtils.showStatistics(resultado);
 			
 		};
 	}

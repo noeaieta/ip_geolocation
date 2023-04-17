@@ -9,6 +9,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import com.ipgeolocation.clients.apiconvert.APIConvertClient;
@@ -16,6 +17,7 @@ import com.ipgeolocation.entity.Country;
 import com.ipgeolocation.entity.Distance;
 import com.ipgeolocation.entity.GeolocatedIP;
 import com.ipgeolocation.services.DistanceService;
+import com.ipgeolocation.statistics.StatisticsResponse;
 
 public class GeolocationUtils {
 	
@@ -45,6 +47,7 @@ public class GeolocationUtils {
 	}
 
 	public static String getCurrencyWithPriceToShow(GeolocatedIP geolocatedIP) throws Exception {
+		System.out.println("Se va a llamar con el geolocatedip " + geolocatedIP.getCountry().getCurrency().getCode());
 		String currencyToShow = "";
 		Double rate;
 		APIConvertClient apiConvertClient = new APIConvertClient();
@@ -90,11 +93,27 @@ public class GeolocationUtils {
 	
 		final Object[][] table = new String[2][];
 		table[0] = new String[] { "País", "Distancia"};
-		table[1] = new String[] { distance.getGeolocatedIp().getCountry().getName(), distance.getDistance().toString()};
+		table[1] = new String[] { distance.getCountry().getName(), distance.getToBuenosAires().toString()};
 
 		for (final Object[] row : table) {
 		    System.out.format("%-15s%-15s%n", row);
 		}
+	}
+	
+	public static void showStatistics(List<StatisticsResponse> statisticsDistance) {
+		System.out.printf("--------------------------------%n");
+		System.out.printf(" ESTADÍSTICAS         %n");
+		System.out.printf(" Distancia promedio de las ejecuciones         %n");
+
+		System.out.printf("--------------------------------%n");
+		System.out.printf("| %-10s | %-8s | %4s |%n", "PAÍS", "DISTANCIA", "INVOCACIONES");
+		System.out.printf("--------------------------------%n");
+
+		for (int i = 0; i < statisticsDistance.size(); i++) {
+		
+			System.out.printf("| %-10s | %-8s | %04d |%n", statisticsDistance.get(i).getCountry(), statisticsDistance.get(i).getDistanceToBsAs(),  statisticsDistance.get(i).getInvocations());			
+		}
+		System.out.printf("--------------------------------%n");
 	}
 	
 }
