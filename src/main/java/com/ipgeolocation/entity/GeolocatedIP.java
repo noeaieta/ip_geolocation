@@ -44,8 +44,5 @@ public class GeolocatedIP {
 	public void setCountry(Country country) {
 		this.country = country;
 	}
-	
-	
-	
 
 }

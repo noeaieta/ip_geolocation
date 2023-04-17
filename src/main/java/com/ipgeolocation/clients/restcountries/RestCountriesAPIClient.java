@@ -16,10 +16,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 @Service
 public class RestCountriesAPIClient {
 	
+	private static final String URL_API_RESTCOUNTRIES = "https://restcountries.com/v3.1/alpha/";
+	
 	public RestCountriesResponse getCountryTimeZoneAndCurrency(String code) throws IOException, InterruptedException {
 		HttpResponse<String> responseAPI = null;
 		
-		HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://restcountries.com/v3.1/alpha/"+code))
+		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(URL_API_RESTCOUNTRIES + code))
 				.method("GET", HttpRequest.BodyPublishers.noBody()).build();
 
 		responseAPI = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());

@@ -8,28 +8,41 @@ import java.net.http.HttpResponse;
 
 import org.json.JSONObject;
 
+import com.ipgeolocation.properties.GeolocationIPProperties;
+
 public class APIConvertClient {
 	
 	private static final String URL_EXCHANGE = "https://api.apilayer.com/fixer/convert?to=";
 
+	private String apikey;
+	
+	public APIConvertClient() {
+		GeolocationIPProperties properties = new GeolocationIPProperties();
+		this.apikey = properties.getPropertyValue("APIKEY_APICONVERT");	
+	}
+	
 	public Double getExchangeRate(String from, String to) throws IOException, InterruptedException {
-		Double rate;
+		
+		Double rate = 0.0;
 		String url = URL_EXCHANGE + from + "&from=" + to + "&amount=1";
 
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create(url))
-				.header("apikey", "XxpO7BqC7SupjS3ak400CLj7Q8EfxJ4O")
+				.header("apikey", this.apikey)
 				.method("GET", HttpRequest.BodyPublishers.noBody())
 				.build();
 		HttpResponse<String> response = null;
 
 		response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 		
-		String responseExchangeRate = response.body();
-		JSONObject exchangeRate = new JSONObject(responseExchangeRate);
+		if (response != null) {
+			String responseExchangeRate = response.body();
+			JSONObject exchangeRate = new JSONObject(responseExchangeRate);
 
-		rate = exchangeRate.getJSONObject("info").getDouble("rate");
+			rate = exchangeRate.getJSONObject("info").getDouble("rate");	
+		}
 		
+
 		return rate;
 	}
 	

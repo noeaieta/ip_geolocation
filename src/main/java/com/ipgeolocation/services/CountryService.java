@@ -14,10 +14,8 @@ public class CountryService {
 	@Autowired
 	private CountryRepository countryRepository;
 	
-	public void getCountries() {
-		 for (Country country : this.countryRepository.findAll()) {
-		        System.out.println(country.getName());
-		  }
+	public Iterable<Country> getCountries() {
+		 return this.countryRepository.findAll();
 	}
 	
 	public Optional<Country> getByCode(String code) {

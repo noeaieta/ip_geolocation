@@ -31,7 +31,7 @@ public class GeolocationUtils {
 		System.out.println("Idiomas: " + getLanguagesToShow(geolocatedIP));
 		System.out.println("Moneda: " + getCurrencyWithPriceToShow(geolocatedIP));
 		System.out.println("Hora: " + getHoursInCountry(geolocatedIP)); 
-		System.out.println("Distancia estimada: " + distanceService.getDistanceByIP(geolocatedIP) + " kms"); 
+		//System.out.println("Distancia estimada: " + distanceService.getDistanceByIP(geolocatedIP) + " kms"); 
 		System.out.println(DIVIDER);
 
 	}

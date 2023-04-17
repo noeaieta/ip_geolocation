@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ipgeolocation.entity.Country;
 import com.ipgeolocation.entity.Distance;
 import com.ipgeolocation.entity.GeolocatedIP;
 import com.ipgeolocation.repositories.DistanceRepository;
@@ -23,14 +22,15 @@ public class DistanceService {
 	}
 	
 	public Optional<Distance> getDistanceByIP(GeolocatedIP geolocatedIP) {
-		 return this.distanceRepository.findById(geolocatedIP.getIp());
+		 return this.distanceRepository.findById(geolocatedIP.getCountry().getName());
 	}
 
 	public Distance saveDistance(Distance distance) {
         return this.distanceRepository.save(distance);
 	}
 	
-	/* Returns the distance between Buenos Aires and countryTo in kilometers from latitudes and longitudes */
+	/* Returns the distance between Buenos Aires and countryTo in kilometers from latitudes and longitudes
+	 * References: https://donnierock.com/2015/03/16/calculando-la-distancia-entre-doos-coordenadas-en-java/ */
 	public double getDistanceTo(Double latitudeFrom, Double longitudeFrom, Double latitudeTo, Double longitudeTo) {
 		double latitudes = Math.toRadians(latitudeTo - latitudeFrom);
 		double longitudes = Math.toRadians(longitudeTo - longitudeFrom);

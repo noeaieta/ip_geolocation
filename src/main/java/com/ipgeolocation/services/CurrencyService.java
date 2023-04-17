@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ipgeolocation.entity.Country;
 import com.ipgeolocation.entity.Currency;
 import com.ipgeolocation.repositories.CurrencyRepository;
 
@@ -15,10 +14,8 @@ public class CurrencyService {
 	@Autowired
 	private CurrencyRepository currencyRepository;
 	
-	public void getCurrencies() {
-		 for (Currency currency : this.currencyRepository.findAll()) {
-		        System.out.println(currency.getName());
-		  }
+	public Iterable<Currency> getCurrencies() {
+		 return this.currencyRepository.findAll();
 	}
 	
 	public Optional<Currency> getByCode(String code) {

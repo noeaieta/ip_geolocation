@@ -1,13 +1,11 @@
 package com.ipgeolocation.services;
 
-import java.io.IOException;
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.ipgeolocation.clients.ipapi.IPAPIClient;
@@ -20,14 +18,14 @@ import com.ipgeolocation.entity.Distance;
 import com.ipgeolocation.entity.GeolocatedIP;
 import com.ipgeolocation.repositories.GeolocatedIPRepository;
 import com.ipgeolocation.statistics.StatisticsResponse;
-import com.ipgeolocation.statistics.StatisticsService;
-import com.ipgeolocation.utils.GeolocationUtils;
 
 @Service
 public class GeolocatedIPService {
 
 	private static final double LATITUDE_BS_AS = -34.6142;
 	private static final double LONGITUDE_BS_AS = -58.3811;
+	
+	private static Logger logger = LogManager.getLogger(GeolocatedIPService.class);
 	
 	@Autowired
 	private GeolocatedIPRepository geolocatedIPRepository;
@@ -44,10 +42,8 @@ public class GeolocatedIPService {
 	@Autowired
 	private RestCountriesAPIClient restCountriesAPIClient;
 	
-	public void getGeolocatedIps() {
-		 for (GeolocatedIP geolocatedIP : this.geolocatedIPRepository.findAll()) {
-		        System.out.println(geolocatedIP.getIp());
-		  }
+	public Iterable<GeolocatedIP> getGeolocatedIps() {
+		 return this.geolocatedIPRepository.findAll();
 	}
 	
 	public Optional<GeolocatedIP> getByIP(String ip) {
@@ -56,14 +52,13 @@ public class GeolocatedIPService {
 	
 	public void saveGeolocatedIp(GeolocatedIP geolocatedIP) {
         this.geolocatedIPRepository.save(geolocatedIP);
-        System.out.println("GeolocatedIP saved OK");
+        logger.info("GeolocatedIP saved OK");
 	}
 	
 	public void getCallsByCountry(Country country) {
 		this.geolocatedIPRepository.findById(country.getCodeISO());
 		
 	}
-	
 	
 	public List<StatisticsResponse> getInvocationsPerCountry() {
 		return this.geolocatedIPRepository.getInvocationsPerCountry();	
@@ -104,12 +99,6 @@ public class GeolocatedIPService {
 			} catch (Exception exception) {
 				throw new Exception("Error while trying to call RestCountryAPIClient :" + exception.getMessage());
 			}
-			
-			//Veo si la moneda está en la base
-			//Optional<Currency> currencyReq = this.currencyService.getByCode(currencyCode);
-			/*if (!currencyReq.isPresent()) { //si la moneda no existe la guardo en la base de datos.
-				this.currencyService.saveCurrency(currencyReq.get());
-			}*/
 			country = new Country();
 			country.setCodeISO(responseIPAPI.getCountryCode());
 			country.setName(responseIPAPI.getCountryName());
@@ -119,7 +108,6 @@ public class GeolocatedIPService {
 			country.setCurrency(new Currency(currencyCode, currencyName));
 			country.setTimezones(restCountriesResponse.getTimezones());
 			
-			//Guardo los datos del nuevo país en la base
 			this.countryService.saveCountry(country);
 		} else {
 			country = countryReq.get();
