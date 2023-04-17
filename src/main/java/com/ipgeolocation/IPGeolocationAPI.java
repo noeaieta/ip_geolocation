@@ -58,21 +58,26 @@ public class IPGeolocationAPI {
 	@Bean
 	public CommandLineRunner cmd() {
 		return (args) -> {
+			switch(args[0]) {
+			  case "traceip":
+				  GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP(args[1]);
+				  GeolocationUtils.showResults(geolocatedIP);
+			    break;
+			  case "statistics":
+				  List<StatisticsResponse> statisticsTable = this.geolocatedIPService.getInvocationsPerCountry();
+				  GeolocationUtils.showStatistics(statisticsTable);
+			    break;
+			  case "statisticNearestDistance":
+				  GeolocationUtils.showStatisticsDistances(this.statisticsService.getTheNearestDistance(), "cercana");
+			  case "statisticFurthestDistance":
+				  GeolocationUtils.showStatisticsDistances(this.statisticsService.getTheFurthestDistance(), "lejana");
+			  case "statisticAverageInvocations":
+				  GeolocationUtils.showAverageInvocations(this.statisticsService.averageInvocations(this.geolocatedIPService.getInvocationsPerCountry()));
+			  default:
+			    // code block
+			}
 			
-			/*Scanner scanner = new Scanner(System.in);
-			System.out.println("Please enter your ip: ");
-			String ip = scanner.nextLine();
-			System.out.println("IP ingresada " + ip);
-			scanner.close();*/
 			//String ip = "200.123.140.97"; 	//String ip = args[0];			
-			
-			//GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP("104.239.73.253");
-			//GeolocationUtils.showResults(geolocatedIP);
-
-			
-			List<StatisticsResponse> resultado = this.geolocatedIPService.getInvocationsPerCountry();
-			GeolocationUtils.showStatistics(resultado);
-			
 		};
 	}
 }

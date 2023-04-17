@@ -1,8 +1,6 @@
 package com.ipgeolocation.statistics;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +14,55 @@ public class StatisticsService {
 	
 	@Autowired
 	private DistanceService distanceService;
-	
-	/* Returns the farthest and nearest distances from Bs As in a list, 
-	 * The first element is the nearest, and the second is the farthest */
-	public List<Distance> getTheFarthestAndNearestDistance() {		
+		
+	public Distance getTheFurthestDistance() {
 		Iterable<Distance> distances = this.distanceService.getDistances();
-		    
+	    
 		List<Distance> allDistances = new ArrayList<>();
 		distances.forEach(allDistances::add);
 		
-		double maxDistance = 0.0 , minDistance = 0.0;
-		int positionMin = 0, positionMax = 0;
+		Distance distanceMax = null;
+		Double maxDistance = 0.0;
+		int posicionMax = 0;
 		for (int i = 0; i < allDistances.size(); i++) {	
-			if (allDistances.get(i).getToBuenosAires() > maxDistance) {
+			if (allDistances.get(i).getToBuenosAires() > maxDistance) {	
+				posicionMax = i;
 				maxDistance = allDistances.get(i).getToBuenosAires();
-				positionMax = i;
 			}
-			if (allDistances.get(i).getToBuenosAires() < minDistance) {
-				minDistance = allDistances.get(i).getToBuenosAires();
-				positionMin = i;
-			}
+			
 		}
-		List<Distance> farthestAndNearestDistances = new ArrayList<>();
-		farthestAndNearestDistances.add(allDistances.get(positionMin));
-		farthestAndNearestDistances.add(allDistances.get(positionMax));
+		distanceMax =  allDistances.get(posicionMax);	
+		return distanceMax;
+	}
+	
+	public Distance getTheNearestDistance() {
+		Iterable<Distance> distances = this.distanceService.getDistances();
+	    
+		List<Distance> allDistances = new ArrayList<>();
+		distances.forEach(allDistances::add);
 		
-		return farthestAndNearestDistances;
+		Distance distanceMin = null;
+		Double minDistance = allDistances.get(0).getToBuenosAires();
+		int posicionMin = 0;
+		for (int i = 0; i < allDistances.size(); i++) {	
+			if (allDistances.get(i).getToBuenosAires() < minDistance) {	
+				posicionMin = i;
+				minDistance = allDistances.get(i).getToBuenosAires();
+			}
+			
+		}
+		distanceMin =  allDistances.get(posicionMin);	
+		return distanceMin;
+	}
+	
+	public Double averageInvocations(List<StatisticsResponse> distancesInvocations) {
+		Double averageInvocations = 0.0;
+		Double sumInvocations = 0.0;
+		for (int i = 0; i < distancesInvocations.size(); i++) {
+			sumInvocations = sumInvocations + distancesInvocations.get(i).getDistanceToBsAs();
+		}
+		averageInvocations = sumInvocations / distancesInvocations.size();
+		return averageInvocations;
 	}
 
 }

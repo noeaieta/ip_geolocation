@@ -1,6 +1,5 @@
 package com.ipgeolocation.utils;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -22,8 +21,6 @@ import com.ipgeolocation.statistics.StatisticsResponse;
 public class GeolocationUtils {
 	
 	public static final String DIVIDER = "###############################################";
-	private static final double LATITUDE_BS_AS = -34.6142;
-	private static final double LONGITUDE_BS_AS = -58.3811;
 	
 	public static void showResults(GeolocatedIP geolocatedIP) throws Exception {
 		DistanceService distanceService = new DistanceService();
@@ -118,4 +115,39 @@ public class GeolocationUtils {
 		System.out.printf("--------------------------------%n");
 	}
 	
+	public static void showStatisticsFurthestAndNearest(List<Distance> distancesStatistics) {
+		System.out.printf("--------------------------------%n");
+		System.out.printf(" ESTADÍSTICAS         %n");
+		System.out.printf(" Distancia más lejana a Buenos Aires desde la cual se haya consultado el servicio %n");
+		System.out.printf("| %-10s | %-8s |%n", "PAÍS", "DISTANCIA");
+		System.out.printf("| %-10s | %-8s |%n", 
+				distancesStatistics.get(0).getCountry(), 
+				distancesStatistics.get(0).getToBuenosAires());
+		System.out.printf("--------------------------------%n");
+		System.out.printf(" Distancia más cercana a Buenos Aires desde la cual se haya consultado el servicio %n");
+		System.out.printf("| %-10s | %-8s |%n", "PAÍS", "DISTANCIA");
+		System.out.printf("| %-10s | %-8s |%n", 
+				distancesStatistics.get(1).getCountry(), 
+				distancesStatistics.get(1).getToBuenosAires());
+		
+	}
+	
+	public static void showStatisticsDistances(Distance distance, String option) {
+		System.out.println("País " + distance.getCountry().getName());
+		System.out.println("Distancia " + distance.getToBuenosAires());
+		
+		System.out.printf("--------------------------------%n");
+		System.out.printf(" Distancia más " + option +"a Buenos Aires desde la cual se haya consultado el servicio %n");
+		System.out.printf("| %-10s | %-8s |%n", "PAÍS", "DISTANCIA");
+		System.out.printf("| %-10s | %-8s |%n", 
+				distance.getCountry().getName(), 
+				distance.getToBuenosAires());
+		System.out.printf("--------------------------------%n");
+	}
+	
+	public static void showAverageInvocations(Double average) {
+		System.out.printf("--------------------------------%n");
+		System.out.printf("Promedio de todas las invocaciones: " + average);
+		System.out.printf("--------------------------------%n");
+	}
 }
