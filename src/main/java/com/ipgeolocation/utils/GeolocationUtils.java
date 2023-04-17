@@ -48,7 +48,6 @@ public class GeolocationUtils {
 	}
 
 	public static String getCurrencyWithPriceToShow(GeolocatedIP geolocatedIP) throws Exception {
-		System.out.println("Se va a llamar con el geolocatedip " + geolocatedIP.getCountry().getCurrency().getCode());
 		String currencyToShow = "";
 		Double rate;
 		APIConvertClient apiConvertClient = new APIConvertClient();
@@ -110,9 +109,11 @@ public class GeolocationUtils {
 		System.out.printf("| %-10s | %-8s | %4s |%n", "PAÍS", "DISTANCIA", "INVOCACIONES");
 		System.out.printf("--------------------------------%n");
 
-		for (int i = 0; i < statisticsDistance.size(); i++) {
-		
-			System.out.printf("| %-10s | %-8s | %04d |%n", statisticsDistance.get(i).getCountry(), statisticsDistance.get(i).getDistanceToBsAs(),  statisticsDistance.get(i).getInvocations());			
+		for (int i = 0; i < statisticsDistance.size(); i++) {		
+			System.out.printf("| %-10s | %-8s | %04d |%n", 
+					statisticsDistance.get(i).getCountry(), 
+					statisticsDistance.get(i).getDistanceToBsAs(),  
+					statisticsDistance.get(i).getInvocations());			
 		}
 		System.out.printf("--------------------------------%n");
 	}

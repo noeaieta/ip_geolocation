@@ -22,10 +22,12 @@
 		</resources>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<release>16</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -65,11 +67,10 @@
 			<artifactId>javax.persistence-api</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-jar-plugin</artifactId>
-			<version>3.0.2</version>
-		</dependency>
-
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 			<artifactId>maven-jar-plugin</artifactId> -->
+<!-- 			<version>3.0.2</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 </project>
