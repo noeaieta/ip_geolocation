@@ -26,6 +26,9 @@ import com.ipgeolocation.utils.GeolocationUtils;
 @Service
 public class GeolocatedIPService {
 
+	private static final double LATITUDE_BS_AS = -34.6142;
+	private static final double LONGITUDE_BS_AS = -58.3811;
+	
 	@Autowired
 	private GeolocatedIPRepository geolocatedIPRepository;
 	
@@ -68,7 +71,7 @@ public class GeolocatedIPService {
 	
 	 
 	public void calculateAndSaveDistance(GeolocatedIP geolocatedIP) {
-		Double distance = this.distanceService.getDistanceTo(geolocatedIP.getCountry());
+		Double distance = this.distanceService.getDistanceTo(LATITUDE_BS_AS, LONGITUDE_BS_AS, geolocatedIP.getCountry().getLatitude(), geolocatedIP.getCountry().getLongitude());
 		
 		this.distanceService.saveDistance(new Distance(geolocatedIP.getCountry(), distance));
 	}

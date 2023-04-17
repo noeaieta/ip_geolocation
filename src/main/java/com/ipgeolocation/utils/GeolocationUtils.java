@@ -22,7 +22,8 @@ import com.ipgeolocation.statistics.StatisticsResponse;
 public class GeolocationUtils {
 	
 	public static final String DIVIDER = "###############################################";
-	
+	private static final double LATITUDE_BS_AS = -34.6142;
+	private static final double LONGITUDE_BS_AS = -58.3811;
 	
 	public static void showResults(GeolocatedIP geolocatedIP) throws Exception {
 		DistanceService distanceService = new DistanceService();
@@ -33,7 +34,7 @@ public class GeolocationUtils {
 		System.out.println("Idiomas: " + getLanguagesToShow(geolocatedIP));
 		System.out.println("Moneda: " + getCurrencyWithPriceToShow(geolocatedIP));
 		System.out.println("Hora: " + getHoursInCountry(geolocatedIP)); 
-		System.out.println("Distancia estimada: " + distanceService.getDistanceTo(geolocatedIP.getCountry()) + " kms"); 
+		System.out.println("Distancia estimada: " + distanceService.getDistanceByIP(geolocatedIP) + " kms"); 
 		System.out.println(DIVIDER);
 
 	}
