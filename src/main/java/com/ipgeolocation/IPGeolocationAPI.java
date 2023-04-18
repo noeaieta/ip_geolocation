@@ -33,7 +33,7 @@ public class IPGeolocationAPI {
 	
 	@Bean
 	public CommandLineRunner cmd() {
-		return (args) -> {       
+		return (args) -> {
 			switch(args[0]) {
 			  case "traceip":
 				  GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP(args[1]);

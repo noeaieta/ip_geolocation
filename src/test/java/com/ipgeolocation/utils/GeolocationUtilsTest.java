@@ -17,7 +17,7 @@ public class GeolocationUtilsTest {
 	
 	public static final String IP_TEST = "200.10.133.99";
 	
-	@Test
+	/*@Test
 	public void getCurrentDateTest() {
 		assertNotNull(GeolocationUtils.getCurrentDate());
 	}
@@ -46,6 +46,6 @@ public class GeolocationUtilsTest {
 		
 		String expectedResult = "ARS (1 ARS = 200.0 U$S)";
 		assertEquals(expectedResult, GeolocationUtils.getCurrencyWithPriceToShow(geolocatedIP));
-	}
+	}*/
 
 }

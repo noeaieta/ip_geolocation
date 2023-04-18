@@ -132,12 +132,9 @@ public class GeolocationUtils {
 		
 	}
 	
-	public static void showStatisticsDistances(Distance distance, String option) {
-		System.out.println("País " + distance.getCountry().getName());
-		System.out.println("Distancia " + distance.getToBuenosAires());
-		
+	public static void showStatisticsDistances(Distance distance, String option) {		
 		System.out.printf("--------------------------------%n");
-		System.out.printf(" Distancia más " + option +"a Buenos Aires desde la cual se haya consultado el servicio %n");
+		System.out.printf(" Distancia más " + option +" a Buenos Aires desde la cual se haya consultado el servicio %n");
 		System.out.printf("| %-10s | %-8s |%n", "PAÍS", "DISTANCIA");
 		System.out.printf("| %-10s | %-8s |%n", 
 				distance.getCountry().getName(), 
