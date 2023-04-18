@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.ipgeolocation.utils.GeolocationUtilsTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.659 s <<< FAILURE! - in com.ipgeolocation.utils.GeolocationUtilsTest
-getCurrencyWithPriceToShow  Time elapsed: 1.587 s  <<< ERROR!
-java.lang.Exception: Error while trying to call CurrencyAPI :No value for info
-	at com.ipgeolocation.utils.GeolocationUtilsTest.getCurrencyWithPriceToShow(GeolocationUtilsTest.java:48)
-
