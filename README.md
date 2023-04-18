@@ -90,3 +90,14 @@ Promedio de todas las invocaciones: 10148.696989311818--------------------------
 
 *default*: La aplicación por default nos devuelve las estadísticas de las consultas realizadas al servicio como en *statistics*.
 
+La manera para ejecutarlo es la siguiente: (contando previamente con las instalaciones antes mencionadas y descargado el código presente)
+
+1. Copiar el archivo apikeys.properties (provisto por correo electrónico) que contiene las keys para poder ejecutar las APIs externas a \ip_geolocation\src\main\java\com\ipgeolocation\properties 
+
+2. Ejecutar las queries para crear las tablas (cuyos scripts fueron enviados también por correo electrónico)
+3. En la carpeta raíz del proyecto: (ipgeolocation) ejecutar: 
+`docker build -t ipgeolocation`
+4. Luego, ejecutar:
+	`docker run --rm -e DATASOURCE_URL='jdbc:postgresql://host.docker.internal:5432/ip_geolocation' ipgeolocation traceip “119.42.39.254” `
+
+
