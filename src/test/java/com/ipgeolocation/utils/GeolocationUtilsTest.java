@@ -17,12 +17,13 @@ public class GeolocationUtilsTest {
 	
 	public static final String IP_TEST = "200.10.133.99";
 	
-	/*@Test
+	@Test
 	public void getCurrentDateTest() {
 		assertNotNull(GeolocationUtils.getCurrentDate());
 	}
 	
-	@Test 
+	
+	/*@Test 
 	public void getCurrencyWithPriceToShow() throws Exception {
 		GeolocatedIP geolocatedIP = new GeolocatedIP(IP_TEST);
 		Country country = new Country();

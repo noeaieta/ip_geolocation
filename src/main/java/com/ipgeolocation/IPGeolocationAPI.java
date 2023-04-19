@@ -10,11 +10,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.ipgeolocation.entity.GeolocatedIP;
-import com.ipgeolocation.services.GeolocatedIPService;
-import com.ipgeolocation.statistics.StatisticsResponse;
-import com.ipgeolocation.statistics.StatisticsService;
-import com.ipgeolocation.utils.GeolocationUtils;
+import com.ipgeolocation.entity.*;
+import com.ipgeolocation.services.*;
+import com.ipgeolocation.statistics.*;
+import com.ipgeolocation.utils.*;
 
 @SpringBootApplication
 public class IPGeolocationAPI {	
