@@ -18,7 +18,7 @@ import com.ipgeolocation.statistics.StatisticsService;
 import com.ipgeolocation.utils.GeolocationUtils;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-public class IPGeolocationAPI {	
+public class IPGeolocationAPI implements CommandLineRunner {	
 	
 	@Autowired
 	private GeolocatedIPService geolocatedIPService;
@@ -32,29 +32,26 @@ public class IPGeolocationAPI {
 		SpringApplication.run(IPGeolocationAPI.class, args);
 	}
 	
-	@Bean
-	public CommandLineRunner cmd() {
-		return (args) -> {
-			switch(args[0]) {
-			  case "traceip":
-				  GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP(args[1]);
-				  GeolocationUtils.showResults(geolocatedIP);
-			    break;
-			  case "statistics":
-				  List<StatisticsResponse> statisticsTable = this.geolocatedIPService.getInvocationsPerCountry();
-				  GeolocationUtils.showStatistics(statisticsTable);
-			    break;
-			  case "statisticNearestDistance":
-				  GeolocationUtils.showStatisticsDistances(this.statisticsService.getTheNearestDistance(), "cercana");
-			  case "statisticFurthestDistance":
-				  GeolocationUtils.showStatisticsDistances(this.statisticsService.getTheFurthestDistance(), "lejana");
-			  case "statisticAverageInvocations":
-				  GeolocationUtils.showAverageInvocations(this.statisticsService.averageInvocations(this.geolocatedIPService.getInvocationsPerCountry()));
-			  default:
-				  List<StatisticsResponse> statisticsTableDefault = this.geolocatedIPService.getInvocationsPerCountry();
-				  GeolocationUtils.showStatistics(statisticsTableDefault);
-			}
-			
-		};
+	@Override
+	public void run(String... args) throws Exception {
+		switch(args[0]) {
+		  case "traceip":
+			  GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP(args[1]);
+			  GeolocationUtils.showResults(geolocatedIP);
+		    break;
+		  case "statistics":
+			  List<StatisticsResponse> statisticsTable = this.geolocatedIPService.getInvocationsPerCountry();
+			  GeolocationUtils.showStatistics(statisticsTable);
+		    break;
+		  case "statisticNearestDistance":
+			  GeolocationUtils.showStatisticsDistances(this.statisticsService.getTheNearestDistance(), "cercana");
+		  case "statisticFurthestDistance":
+			  GeolocationUtils.showStatisticsDistances(this.statisticsService.getTheFurthestDistance(), "lejana");
+		  case "statisticAverageInvocations":
+			  GeolocationUtils.showAverageInvocations(this.statisticsService.averageInvocations(this.geolocatedIPService.getInvocationsPerCountry()));
+		  default:
+			  List<StatisticsResponse> statisticsTableDefault = this.geolocatedIPService.getInvocationsPerCountry();
+			  GeolocationUtils.showStatistics(statisticsTableDefault);
+		}
 	}
 }
