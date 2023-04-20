@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import com.ipgeolocation.entity.GeolocatedIP;
@@ -16,7 +17,7 @@ import com.ipgeolocation.statistics.StatisticsResponse;
 import com.ipgeolocation.statistics.StatisticsService;
 import com.ipgeolocation.utils.GeolocationUtils;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class IPGeolocationAPI {	
 	
 	@Autowired
@@ -25,7 +26,7 @@ public class IPGeolocationAPI {
 	@Autowired
 	private StatisticsService statisticsService;
 	
-	private static Logger logger = LogManager.getLogger(IPGeolocationAPI.class);
+	//private static Logger logger = LogManager.getLogger(IPGeolocationAPI.class);
 	
 	public static void main(String[] args) {
 		SpringApplication.run(IPGeolocationAPI.class, args);
