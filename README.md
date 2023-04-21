@@ -95,9 +95,10 @@ La manera para ejecutarlo es la siguiente: (contando previamente con las instala
 1. Copiar del archivo apikeys.properties (provisto por correo electrónico) que contiene las keys para poder ejecutar las APIs externas a \ip_geolocation\src\main\resources\application.properties según corresponda para cada API
 
 2. Ejecutar las queries para crear las tablas que se encuentran en \ip_geolocation\src\main\resources\init_postgres.sql
-3. En la carpeta raíz del proyecto: (ipgeolocation) ejecutar: 
+3. En la carpeta raís del proyecto (ipgeolocation) ejecutar: mvn package 
+4. En la carpeta raíz del proyecto: (ipgeolocation) ejecutar: 
 `docker build -t ipgeolocation`
-4. Luego, ejecutar:
+5. Luego, ejecutar:
 	`docker run --rm -e DATASOURCE_URL='jdbc:postgresql://host.docker.internal:5432/ip_geolocation' ipgeolocation traceip “119.42.39.254” `
 
 
