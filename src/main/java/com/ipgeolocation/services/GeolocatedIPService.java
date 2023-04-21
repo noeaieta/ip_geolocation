@@ -71,6 +71,10 @@ public class GeolocatedIPService {
 		this.distanceService.saveDistance(new Distance(geolocatedIP.getCountry(), distance));
 	}
 	
+	public void getDistanceEstimate(GeolocatedIP geolocatedIP) {
+		this.distanceService.getDistanceByIP(geolocatedIP).get().getToBuenosAires();
+	}
+	
 	public GeolocatedIP geolocateIP(String ip) throws Exception {
 		Country country;
 		String countryCode, currencyCode, currencyName;

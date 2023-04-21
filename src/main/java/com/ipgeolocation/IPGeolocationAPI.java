@@ -12,12 +12,13 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import com.ipgeolocation.entity.GeolocatedIP;
+import com.ipgeolocation.services.DistanceService;
 import com.ipgeolocation.services.GeolocatedIPService;
 import com.ipgeolocation.statistics.StatisticsResponse;
 import com.ipgeolocation.statistics.StatisticsService;
 import com.ipgeolocation.utils.GeolocationUtils;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 public class IPGeolocationAPI implements CommandLineRunner {	
 	
 	@Autowired
@@ -25,6 +26,9 @@ public class IPGeolocationAPI implements CommandLineRunner {
 	
 	@Autowired
 	private StatisticsService statisticsService;
+	
+	@Autowired
+	private DistanceService distanceService;
 	
 	//private static Logger logger = LogManager.getLogger(IPGeolocationAPI.class);
 	
@@ -37,9 +41,10 @@ public class IPGeolocationAPI implements CommandLineRunner {
 		switch(args[0]) {
 		  case "traceip":
 			  GeolocatedIP geolocatedIP = this.geolocatedIPService.geolocateIP(args[1]);
+			  //Double distancia = (this.distanceService.getDistanceByIP(geolocatedIP).get()).getToBuenosAires();
 			  GeolocationUtils.showResults(geolocatedIP);
 		    break;
-		  case "statistics":
+		case "statistics":
 			  List<StatisticsResponse> statisticsTable = this.geolocatedIPService.getInvocationsPerCountry();
 			  GeolocationUtils.showStatistics(statisticsTable);
 		    break;
@@ -53,5 +58,6 @@ public class IPGeolocationAPI implements CommandLineRunner {
 			  List<StatisticsResponse> statisticsTableDefault = this.geolocatedIPService.getInvocationsPerCountry();
 			  GeolocationUtils.showStatistics(statisticsTableDefault);
 		}
+		
 	}
 }
