@@ -11,10 +11,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ipgeolocation.clients.apiconvert.APIConvertClient;
 import com.ipgeolocation.entity.Country;
 import com.ipgeolocation.entity.Distance;
 import com.ipgeolocation.entity.GeolocatedIP;
+import com.ipgeolocation.services.CountryService;
 import com.ipgeolocation.services.DistanceService;
 import com.ipgeolocation.statistics.StatisticsResponse;
 
@@ -23,7 +26,7 @@ public class GeolocationUtils {
 	public static final String DIVIDER = "###############################################";
 	
 	public static void showResults(GeolocatedIP geolocatedIP) throws Exception {
-		DistanceService distanceService = new DistanceService();
+		
 		System.out.println(DIVIDER);
 		System.out.println("IP: " + geolocatedIP.getIp() + ", " + "Fecha Actual: " + getCurrentDate());
 		System.out.println("País: " + geolocatedIP.getCountry().getName());
@@ -31,7 +34,7 @@ public class GeolocationUtils {
 		System.out.println("Idiomas: " + getLanguagesToShow(geolocatedIP));
 		System.out.println("Moneda: " + getCurrencyWithPriceToShow(geolocatedIP));
 		System.out.println("Hora: " + getHoursInCountry(geolocatedIP)); 
-		//System.out.println("Distancia estimada: " + distanceService.getDistanceByIP(geolocatedIP) + " kms"); 
+		//System.out.println("Distancia estimada: " + distancia + " kms"); 
 		System.out.println(DIVIDER);
 
 	}
