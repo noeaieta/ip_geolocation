@@ -22,7 +22,7 @@ CREATE TABLE public.distances (
     id integer NOT NULL,
     to_buenos_aires double precision NOT NULL,
     country text
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
 	CONSTRAINT fk_country
       FOREIGN KEY(country) 
 	  REFERENCES countries(code_iso)
@@ -31,7 +31,7 @@ CREATE TABLE public.distances (
 CREATE TABLE public.geolocatedip (
     ip text NOT NULL,
     country text
-	PRIMARY KEY (ip)
+	PRIMARY KEY (ip),
 	CONSTRAINT fk_country
       FOREIGN KEY(country) 
 	  REFERENCES countries(code_iso)
