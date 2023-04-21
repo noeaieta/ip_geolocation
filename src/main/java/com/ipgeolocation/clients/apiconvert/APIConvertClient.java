@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.ipgeolocation.properties.GeolocationIPProperties;
 
@@ -14,11 +15,12 @@ public class APIConvertClient {
 	
 	private static final String URL_EXCHANGE = "https://api.apilayer.com/fixer/convert?to=";
 
-	private String apikey;
+	@Value("${apikeyConvert}")
+	private String apikeyConvert;
 	
 	public APIConvertClient() {
-		GeolocationIPProperties properties = new GeolocationIPProperties();
-		this.apikey = properties.getPropertyValue("APIKEY_APICONVERT");	
+		/*GeolocationIPProperties properties = new GeolocationIPProperties();
+		this.apikey = properties.getPropertyValue("APIKEY_APICONVERT");*/	
 	}
 	
 	public Double getExchangeRate(String from, String to) throws IOException, InterruptedException {
@@ -28,7 +30,7 @@ public class APIConvertClient {
 
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create(url))
-				.header("apikey", this.apikey)
+				.header("apikey", apikeyConvert)
 				.method("GET", HttpRequest.BodyPublishers.noBody())
 				.build();
 		HttpResponse<String> response = null;
