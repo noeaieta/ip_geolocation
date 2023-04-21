@@ -92,9 +92,9 @@ Promedio de todas las invocaciones: 10148.696989311818--------------------------
 
 La manera para ejecutarlo es la siguiente: (contando previamente con las instalaciones antes mencionadas y descargado el código presente)
 
-1. Copiar el archivo apikeys.properties (provisto por correo electrónico) que contiene las keys para poder ejecutar las APIs externas a \ip_geolocation\src\main\java\com\ipgeolocation\properties 
+1. Copiar del archivo apikeys.properties (provisto por correo electrónico) que contiene las keys para poder ejecutar las APIs externas a \ip_geolocation\src\main\resources\application.properties según corresponda para cada API
 
-2. Ejecutar las queries para crear las tablas (cuyos scripts fueron enviados también por correo electrónico)
+2. Ejecutar las queries para crear las tablas que se encuentran en \ip_geolocation\src\main\resources\init_postgres.sql
 3. En la carpeta raíz del proyecto: (ipgeolocation) ejecutar: 
 `docker build -t ipgeolocation`
 4. Luego, ejecutar:
